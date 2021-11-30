@@ -1,30 +1,36 @@
 package com.company;
 
 public class PermutationCombination {
+    static int noOfDigits(int N)
+    {
+        int count = 0;
+        while (N>0)
+        {
+            count++;
 
-    public static void main(String[] args) throws Exception {
-        String str = "abc";
-        StringBuffer strBuf = new StringBuffer(str);
-        doPerm(strBuf,0);
+            N = N / 10;
+        }
+
+        return count;
     }
-
-    private static void doPerm(StringBuffer str, int index){
-
-        if(index == str.length())
-            System.out.println(str);
-        else { //recursively solve this by placing all other chars at current first pos
-            doPerm(str, index+1);
-            for (int i = index+1; i < str.length(); i++) {//start swapping all other chars with current first char
-                swap(str,index, i);
-                doPerm(str, index+1);
-                swap(str,i, index);//restore back my string buffer
-            }
+    static void cyclicPermutation(int N)
+    {
+        int num = N;
+        int n = noOfDigits(N);
+        while (true)
+        {
+            System.out.println(num);
+            int remainder = num % 10;
+            int dev = num / 10;
+            num = (int)((Math.pow(10, n - 1)) * remainder + dev);
+            if (num == N)
+                break;
         }
     }
 
-    private  static void swap(StringBuffer str, int pos1, int pos2){
-        char t1 = str.charAt(pos1);
-        str.setCharAt(pos1, str.charAt(pos2));
-        str.setCharAt(pos2, t1);
+    public static void main (String args[])
+    {
+        int N = 1234;
+        cyclicPermutation(N);
     }
 }
